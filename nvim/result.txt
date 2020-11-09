@@ -1,0 +1,60 @@
+
+health#coc#check
+========================================================================
+  - OK: Environment check passed
+
+  - OK: Javascript bundle build/index.js found
+  - OK: Service started
+
+health#nvim#check
+========================================================================
+## Configuration
+  - OK: no issues found
+
+## Performance
+  - OK: Build type: Release
+
+## Remote Plugins
+  - OK: Up to date
+
+## terminal
+  - INFO: key_backspace (kbs) terminfo entry: key_backspace=\177
+  - INFO: key_dc (kdch1) terminfo entry: key_dc=\E[3~
+
+health#provider#check
+========================================================================
+## Clipboard (optional)
+  - OK: Clipboard tool found: win32yank-wsl
+
+## Python 2 provider (optional)
+  - WARNING: No Python executable found that can `import neovim`. Using the first available executable for diagnostics.
+  - ERROR: Python provider error:
+    - ADVICE:
+      - provider/pythonx: Could not load Python 2:
+          /usr/bin/python2 does not have the "neovim" module. :help |provider-python|
+          /usr/bin/python2.7 does not have the "neovim" module. :help |provider-python|
+          python2.6 not found in search path or not executable.
+          python not found in search path or not executable.
+  - INFO: Executable: Not found
+
+## Python 3 provider (optional)
+  - INFO: `g:python3_host_prog` is not set.  Searching for python3 in the environment.
+  - INFO: Multiple python3 executables found.  Set `g:python3_host_prog` to avoid surprises.
+  - INFO: Executable: /usr/bin/python3
+  - INFO: Other python executable: /bin/python3
+  - INFO: Python version: 3.8.5
+  - INFO: pynvim version: 0.4.1 (outdated; from /usr/lib/python3/dist-packages/neovim)
+  - WARNING: Latest pynvim is NOT installed: 0.4.2
+
+## Ruby provider (optional)
+  - WARNING: `ruby` and `gem` must be in $PATH.
+    - ADVICE:
+      - Install Ruby and verify that `ruby` and `gem` commands work.
+
+## Node.js provider (optional)
+  - INFO: Node.js: v10.19.0
+  - WARNING: Missing "neovim" npm (or yarn) package.
+    - ADVICE:
+      - Run in shell: npm install -g neovim
+      - Run in shell (if you use yarn): yarn global add neovim
+

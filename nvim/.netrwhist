@@ -1,3 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/mnt/c/yarin_maun/webApp/src/Componets/About'
+let g:netrw_dirhist_5='/mnt/c/yarin_maun/webApp/src/Componets'
+let g:netrw_dirhist_4='/mnt/c/yarin_maun/webApp/src'
+let g:netrw_dirhist_3='/mnt/c/Users/User2/Desktop/works/11 grade+12/אנגלית'
+let g:netrw_dirhist_2='/mnt/c/yarin_maun/database'
 let g:netrw_dirhist_1='/mnt/c/site'

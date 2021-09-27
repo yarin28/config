@@ -1,0 +1,422 @@
+snippet list_implement "literaly a singly linked list implementation insert, remove, add, count source code" b
+#include<stdio.h>
+#include<stdlib.h>
+ 
+struct node
+{
+    int data;
+    struct node *next;
+}*head;
+ 
+ 
+ 
+void append(int num)
+{
+    struct node *temp,*right;
+    temp= (struct node *)malloc(sizeof(struct node));
+    temp->data=num;
+    right=(struct node *)head;
+    while(right->next != NULL)
+    right=right->next;
+    right->next =temp;
+    right=temp;
+    right->next=NULL;
+}
+ 
+ 
+ 
+void add( int num )
+{
+    struct node *temp;
+    temp=(struct node *)malloc(sizeof(struct node));
+    temp->data=num;
+    if (head== NULL)
+    {
+    head=temp;
+    head->next=NULL;
+    }
+    else
+    {
+    temp->next=head;
+    head=temp;
+    }
+}
+void addafter(int num, int loc)
+{
+    int i;
+    struct node *temp,*left,*right;
+    right=head;
+    for(i=1;i<loc;i++)
+    {
+    left=right;
+    right=right->next;
+    }
+    temp=(struct node *)malloc(sizeof(struct node));
+    temp->data=num;
+    left->next=temp;
+    left=temp;
+    left->next=right;
+    return;
+}
+ 
+ 
+ 
+void insert(int num)
+{
+    int c=0;
+    struct node *temp;
+    temp=head;
+    if(temp==NULL)
+    {
+    add(num);
+    }
+    else
+    {
+    while(temp!=NULL)
+    {
+        if(temp->data<num)
+        c++;
+        temp=temp->next;
+    }
+    if(c==0)
+        add(num);
+    else if(c<count())
+        addafter(num,++c);
+    else
+        append(num);
+    }
+}
+ 
+ 
+ 
+int delete(int num)
+{
+    struct node *temp, *prev;
+    temp=head;
+    while(temp!=NULL)
+    {
+    if(temp->data==num)
+    {
+        if(temp==head)
+        {
+        head=temp->next;
+        free(temp);
+        return 1;
+        }
+        else
+        {
+        prev->next=temp->next;
+        free(temp);
+        return 1;
+        }
+    }
+    else
+    {
+        prev=temp;
+        temp= temp->next;
+    }
+    }
+    return 0;
+}
+ 
+ 
+void  display(struct node *r)
+{
+    r=head;
+    if(r==NULL)
+    {
+    return;
+    }
+    while(r!=NULL)
+    {
+    printf("%d ",r->data);
+    r=r->next;
+    }
+    printf("\n");
+}
+ 
+ 
+int count()
+{
+    struct node *n;
+    int c=0;
+    n=head;
+    while(n!=NULL)
+    {
+    n=n->next;
+    c++;
+    }
+    return c;
+}
+ 
+ 
+int  main()
+{
+    int i,num;
+    struct node *n;
+    head=NULL;
+    while(1)
+    {
+    printf("\nList Operations\n");
+    printf("===============\n");
+    printf("1.Insert\n");
+    printf("2.Display\n");
+    printf("3.Size\n");
+    printf("4.Delete\n");
+    printf("5.Exit\n");
+    printf("Enter your choice : ");
+    if(scanf("%d",&i)<=0){
+        printf("Enter only an Integer\n");
+        exit(0);
+    } else {
+        switch(i)
+        {
+        case 1:      printf("Enter the number to insert : ");
+                 scanf("%d",&num);
+                 insert(num);
+                 break;
+        case 2:     if(head==NULL)
+                {
+                printf("List is Empty\n");
+                }
+                else
+                {
+                printf("Element(s) in the list are : ");
+                }
+                display(n);
+                break;
+        case 3:     printf("Size of the list is %d\n",count());
+                break;
+        case 4:     if(head==NULL)
+                printf("List is Empty\n");
+                else{
+                printf("Enter the number to delete : ");
+                scanf("%d",&num);
+                if(delete(num))
+                    printf("%d deleted successfully\n",num);
+                else
+                    printf("%d not found in the list\n",num);
+                }
+                break;
+        case 5:     return 0;
+        default:    printf("Invalid option\n");
+        }
+    }
+    }
+    return 0;
+}
+endsnippet
+
+snippet stack_implement "stack implementation with generics" b
+#include<iostream>
+#include<cstdlib>
+#define default_value 10
+using namespace std;
+ 
+template< class T > class Stack
+{
+    public:
+    Stack(int = default_value);//default constructor
+    ~Stack()//destructor
+    {delete [] values;}
+    bool push( T );
+    T pop();
+    bool isEmpty();
+    bool isFull();
+    private:
+    int size;
+    T *values;
+    int index;
+ 
+};
+ 
+template< class T > Stack<T>::Stack(int x):
+    size(x),//ctor
+    values(new T[size]),
+    index(-1)
+{ /*empty*/  }
+ 
+template< class T > bool Stack<T>::isFull()
+{
+    if((index + 1) == size )
+    return 1;
+    else
+    return 0;
+}
+ 
+template< class T > bool Stack<T>::push(T x)
+{
+    bool b = 0;
+    if(!Stack<T>::isFull())
+    {
+    index += 1;
+    values[index] = x;
+    b = 1;
+    }
+    return b;
+}
+ 
+template< class T > bool Stack<T>::isEmpty()
+{
+    if( index  == -1 )//is empty
+    return 1;
+    else
+    return 0; //is not empty
+}
+ 
+template< class T > T Stack<T>::pop()
+{
+    T val = -1;
+    if(!Stack<T>::isEmpty())
+    {
+    val = values[index];
+    index -=  1;
+    }
+    else
+    {
+    cerr << "Stack is Empty : ";
+    }
+    return val;
+ 
+}
+ 
+int main()
+{
+    Stack <double> stack1;
+    Stack <int> stack2(5);
+    int y = 1;
+    double x = 1.1;
+    int i, j; 
+    cout << "\n pushed values into stack1: ";
+ 
+    for( i = 1  ; i <= 11 ; i++) //start enter 11 elements into stack
+    {
+    if(stack1.push(i*x))
+        cout << endl << i*x;
+    else
+        cout << "\n Stack1 is full: ";
+    }
+ 
+    cout << "\n\n popd values from stack1 : \n";
+    for( j = 1 ; j <= 11 ; j++)
+    cout << stack1.pop() << endl;
+ 
+ 
+ 
+    cout << "\n pushd values into stack2: ";
+ 
+    for( i = 1  ; i <= 6 ; i++) //start enter 6 elements into stack
+    {
+    if(stack2.push(i*y))
+        cout << endl << i*y;
+    else
+        cout << "\n Stack2 is full: ";
+    }
+ 
+    cout << "\n\n popd values from stack2: \n";
+    for( j = 1 ; j <= 6 ; j++)
+    cout << stack2.pop() << endl;
+    cout << endl << endl;
+    return 0;
+}
+endsnippet
+snippet swp1 "swap" b
+ void swap1(int a, int b)
+{
+    int c = a;
+    a = b;
+    b = c;  
+}
+endsnippet
+snippet swp2 "swap" b
+void swap2(int a, int b)
+{
+// notice: swap2(x, x) doesn't work
+// undefined behavior using this method with floats
+    a = a ^ b;
+    b = a ^ b;
+    a = a ^ b;
+ 
+    //or...
+    //a ^= b;
+    //b ^= a;
+    //a ^= b;
+}
+endsnippet
+snippet swp3 "swap" b
+void swap3(int a, int b)
+{
+// notice: overflow should work, but behaviour is undefined
+    a = a + b;
+    b = a - b;
+    a = a - b;  
+}
+endsnippet
+snippet malloc_len " string length for malloc " b
+/* string length for malloc */
+#define MALLEN(x) (strlen(x) + 1)
+/*
++1 needed for the string closing byte '\0'
+usage: string = malloc(MALLEN(line));
+*/
+endsnippet
+snippet malloc_good " /* check if memory allocation failed */ " b
+/* check if memory allocation failed */
+#define MALCHK(x) if(!x){puts("Out of memory"); exit(EXIT_FAILURE);}
+/*
+sometimes malloc/calloc/realloc fails (eg. not enough free memory)
+usage: MALCHK(string);
+*/
+endsnippet
+snippet fileGood " /* check if a file was opened properly */ " b
+/* check if a file was opened properly */
+#define FILCHK(x) if(!x){printf("Cannot open file %s\n", x); exit(EXIT_FAILURE);}
+/*
+it alerts when eg. the file doesn't exist
+usage: FILCHK(fp);
+*/
+endsnippet
+snippet d_str " /* a dynamic string */ " b
+/* a dynamic string */
+char static_string[] = "herp derp";
+char *dynamic_string;
+dynamic_string = malloc(MALLEN(static_string)); //allocate memory
+strcpy(dynamic_string, static_string); //dynamic_string is now "herp derp"
+/*
+the copying can also be done with sprintf:
+sprintf(dynamic_string, "%s", static_string);
+*/
+endsnippet
+snippet  d_array " a dynamic array of numbers (of any type) */ " b
+int i;
+int static_intarr[] = {0, 1, 2, 3};
+int *dynamic_intarr;
+for(i = 0; i < 4; ++i)
+{
+    dynamic_intarr = realloc(dynamic_intarr, (i + 1) * sizeof(int));
+    //dynamic_intarr has now enough memory for i + 1 int elements
+    MALCHK(dynamic_intarr); //check memory allocation
+    dynamic_intarr[i] = static_intarr[i]; //copy the integer
+}
+/*
+for every i realloc assigns more memory to the array
+it could be done once before the loop if the number of elements (n) is known:
+dynamic_intarr = malloc(n * sizeof(int));
+malloc is for initial memory allocation, realloc for REallocations
+*/
+ 
+endsnippet
+snippet swap "/* string length for malloc */" b
+void swap(type *x, type *y)
+{
+    type z; //the same type as chosen in the brackets above
+     
+    z = *x;
+    *x = *y;
+    *y = z;
+}
+/*
+it is very useful in arrays (sorting, etc.)
+usage: swap(&x, &y); in arrays: swap(&array[k - 1], &array[k]);
+*/
+endsnippet

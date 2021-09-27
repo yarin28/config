@@ -70,3 +70,7 @@ let g:clipboard = {
           \   'cache_enabled': 0,
           \ }
 
+" this is for the tsx file type
+" autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+" autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+let g:rainbow#max_level = 32
